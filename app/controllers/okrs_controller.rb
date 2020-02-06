@@ -69,6 +69,6 @@ class OkrsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def okr_params
-      params.require(:okr).permit(:objective, :project, :milestone, :owner)
+      params.require(:okr).permit(:objective, :key_results, :milestone, :owner)
     end
 end
