@@ -1,0 +1,33 @@
+<%= form_with(model: okr, local: true) do |form| %>
+  <% if okr.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(okr.errors.count, "error") %> prohibited this okr from being saved:</h2>
+
+      <ul>
+        <% okr.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :objective %>
+    <%= form.text_field :objective %>
+  </div>
+
+  <div class="field">
+    <%= form.label :key_results %>
+    <%= form.text_field :key_results %>
+  </div>
+
+
+  <div class="field">
+    <%= form.label :owner %>
+    <%= form.text_field :owner %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

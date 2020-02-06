@@ -1,0 +1,3 @@
+class Okr < ApplicationRecord
+  
+end

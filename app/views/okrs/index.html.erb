@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Talent Team OKRs 2020</h1>
+<h2> What are our OKRs? </h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Objective</th>
+      <th>Key Results</th>
+      <th>Owner</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @okrs.each do |okr| %>
+      <tr>
+        <td><%= okr.objective %></td>
+        <td><%= okr.key_results %></td>
+        <td><%= okr.owner %></td>
+        <td><%= link_to 'Show', okr %></td>
+        <td><%= link_to 'Edit', edit_okr_path(okr) %></td>
+        <td><%= link_to 'Destroy', okr, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Okr', new_okr_path %>
+
+<h2> Where is our focus currently?</h2>
+<h2> Weekly Goals</h2>
+<h2> YTD milestone Status</h2>
