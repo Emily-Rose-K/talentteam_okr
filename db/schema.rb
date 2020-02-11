@@ -20,4 +20,11 @@ ActiveRecord::Schema.define(version: 2020_02_04_021155) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "projects", force: :cascade do |t|
+    t.string "milestones"
+    t.string "due_date"
+    t.string "owner"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 end
