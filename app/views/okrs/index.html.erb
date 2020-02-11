@@ -24,13 +24,27 @@
         <td><%= link_to 'Destroy', okr, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
-  </tbody>
-</table>
-
-<br>
 
 <%= link_to 'New Okr', new_okr_path %>
 
 <h2> Where is our focus currently?</h2>
+
+  <% @projects.each do |project| %>
+    <td><%= project.milestone %></td>
+    <td><%= project.due_date %></td>
+    <td><%= project.owner %></td>
+    <td><%= link_to 'Show', project %></td>
+    <td><%= link_to 'Edit', edit_project_path(project) %></td>
+    <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  <% end %>
+
+  <%= link_to 'New Project', new_project_path %>
+
+  </tbody>
+</table>
+
+
+<br>
+
 <h2> Weekly Goals</h2>
 <h2> YTD milestone Status</h2>
