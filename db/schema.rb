@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_04_021155) do
+ActiveRecord::Schema.define(version: 2020_02_11_201524) do
 
   create_table "okrs", force: :cascade do |t|
     t.string "objective"
@@ -24,7 +24,6 @@ ActiveRecord::Schema.define(version: 2020_02_04_021155) do
     t.string "milestones"
     t.string "due_date"
     t.string "owner"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
+
 end
