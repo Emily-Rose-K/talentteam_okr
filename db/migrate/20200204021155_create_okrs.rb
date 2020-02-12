@@ -4,7 +4,6 @@ class CreateOkrs < ActiveRecord::Migration[6.0]
       t.string :objective
       t.string :key_results
       t.string :owner
-      t.string :project
       t.timestamps
     end
   end

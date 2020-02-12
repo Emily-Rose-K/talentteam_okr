@@ -2,6 +2,7 @@ class OkrsController < ApplicationController
   before_action :set_okr, only: [:show, :edit, :update, :destroy]
   def index
     @okrs = Okr.all
+    @projects = Project.all
   end
   
 

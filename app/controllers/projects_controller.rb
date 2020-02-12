@@ -1,54 +1,32 @@
-# GET /projects/1
-  # GET /projects/1.json
+class ProjectsController < ApplicationController
+    before_action :find_okr, only: [:index, :create, :new, :show, :edit, :update, :destroy]
+    def index
+      @okrs = Okr.all
+      @projects = Project.all
+    end
+
+
+# GET /okrs/1
+  # GET /okrs/1.json
   def show
   end
 
-  # GET /projects/new
   def new
-    @project = Project.new
+    p = Project.new
+    p.okr = @okr
   end
+
+  def create
+    p = Project.new
+    p.okr = @okr
+  end
+  
 
   # GET /projects/1/edit
   def edit
   end
 
-  # POST /projects
-  # POST /projects.json
-  def create
-    @project = project.new(projects_params)
-
-    respond_to do |format|
-      if @project.save
-        format.html { redirect_to @project, notice: 'projects was successfully created.' }
-        format.json { render :show, status: :created, location: @project }
-      else
-        format.html { render :new }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
-      end
+    def find_okr
+        @okr = Okr.find(params[:okr_id])
     end
-  end
-
-  # PATCH/PUT /projects/1
-  # PATCH/PUT /projects/1.json
-  def update
-    respond_to do |format|
-      if @project.update(projects_params)
-        format.html { redirect_to @project, notice: 'project was successfully updated.' }
-        format.json { render :show, status: :ok, location: @projects }
-      else
-        format.html { render :edit }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /projects/1
-  # DELETE /projects/1.json
-  def destroy
-    @project.destroy
-    respond_to do |format|
-      format.html { redirect_to projects_url, notice: 'project was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
+end

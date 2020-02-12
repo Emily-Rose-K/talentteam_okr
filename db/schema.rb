@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_12_175601) do
+ActiveRecord::Schema.define(version: 2020_02_12_203743) do
 
   create_table "okrs", force: :cascade do |t|
     t.string "objective"
@@ -24,6 +24,9 @@ ActiveRecord::Schema.define(version: 2020_02_12_175601) do
     t.string "milestones"
     t.string "due_date"
     t.string "owner"
+    t.integer "okr_id"
+    t.string "name"
+    t.index ["okr_id"], name: "index_projects_on_okr_id"
   end
 
 end
