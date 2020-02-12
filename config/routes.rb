@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
   
-  resources :okrs, :projects
+  resources :okrs
   root 'okrs#index'
 end

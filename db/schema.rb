@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_11_201524) do
+ActiveRecord::Schema.define(version: 2020_02_12_175601) do
 
   create_table "okrs", force: :cascade do |t|
     t.string "objective"

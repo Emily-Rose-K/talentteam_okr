@@ -19,6 +19,7 @@
         <td><%= okr.objective %></td>
         <td><%= okr.key_results %></td>
         <td><%= okr.owner %></td>
+        <td><%= okr.project %></td>
         <td><%= link_to 'Show', okr %></td>
         <td><%= link_to 'Edit', edit_okr_path(okr) %></td>
         <td><%= link_to 'Destroy', okr, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -27,21 +28,13 @@
 
 <%= link_to 'New Okr', new_okr_path %>
 
+</tbody>
+</table>
+
 <h2> Where is our focus currently?</h2>
 
-  <% @projects.each do |project| %>
-    <td><%= project.milestone %></td>
-    <td><%= project.due_date %></td>
-    <td><%= project.owner %></td>
-    <td><%= link_to 'Show', project %></td>
-    <td><%= link_to 'Edit', edit_project_path(project) %></td>
-    <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  <% end %>
 
-  <%= link_to 'New Project', new_project_path %>
 
-  </tbody>
-</table>
 
 
 <br>
