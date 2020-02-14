@@ -36,14 +36,17 @@
   <% @projects.each do |project| %>
     <tr>
       <td><%= project.name %></td>
+     <td><%= link_to 'Add Milestone', new_okr_project_milestone_path(@okrs, project) %></td>
     </tr>
-    <%end%>
+    <% end %>
 
 <t/body>
 </table>
 
-
 <br>
 
 <h2> Weekly Goals</h2>
-<h2> YTD milestone Status</h2>
+
+
+
+<h2> YTD Milestone Status</h2>
