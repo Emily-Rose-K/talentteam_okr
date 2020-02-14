@@ -1,9 +1,5 @@
 class ProjectsController < ApplicationController
-    before_action :find_okr, only: [:index, :new, :show, :create, :edit, :update, :destroy]
-    def index
-      @okrs = Okr.all
-      @projects = Project.all
-    end
+before_action :find_okr 
 
 
 # GET /projects/1

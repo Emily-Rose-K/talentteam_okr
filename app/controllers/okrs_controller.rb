@@ -3,6 +3,7 @@ class OkrsController < ApplicationController
   def index
     @okrs = Okr.all
     @projects = Project.all
+    @milestones = Milestone.all
   end
   
 
