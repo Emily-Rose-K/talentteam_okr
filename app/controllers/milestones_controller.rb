@@ -1,21 +1,28 @@
-class MilestonesController < ApplicationController
-    before_action :find_project, only: [:index, :new, :show, :create, :edit, :update, :destroy]
-    def index
-      @okrs = Okr.all
-      @projects = Project.all
-      @milestones = Milestone.all
-    end
 
-     # GET /milestones/new
+class MilestonesController < ApplicationController
+
+  def index
+    @okrs = Okr.all
+    @projects = Project.all
+    @milestones = Milestone.all
+  end
+
+  # GET /milestones/new
   def new
     @milestone = Milestone.new
   end
 
+  # POST 
 
-  def find_project
-    @project = Project.find(params[:project_id])
-end
-
+  def create
+    @milestone = Milestone.new(milestone_params)
+    @milestone.project_id = params[:project_id]
+    if @milestone.save
+      redirect_to okrs_path, notice: 'Milestone was successfully created.' 
+    else
+      render :new 
+    end
+  end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def milestone_params
