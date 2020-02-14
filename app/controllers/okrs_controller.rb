@@ -6,12 +6,6 @@ class OkrsController < ApplicationController
   end
   
 
-
-  # GET /okrs/1
-  # GET /okrs/1.json
-  def show
-  end
-
   # GET /okrs/new
   def new
     @okr = Okr.new
@@ -28,7 +22,8 @@ class OkrsController < ApplicationController
 
     respond_to do |format|
       if @okr.save
-        format.html { redirect_to @okr, notice: 'OKR was successfully created.' }
+        format.pdf { render text: 'hello' }
+        format.html { redirect_to okrs_path, notice: 'OKR was successfully created.' }
         format.json { render :show, status: :created, location: @okr }
       else
         format.html { render :new }

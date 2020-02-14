@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_12_203743) do
+ActiveRecord::Schema.define(version: 2020_02_14_024442) do
+
+  create_table "milestones", force: :cascade do |t|
+    t.string "name"
+    t.string "due_date"
+    t.boolean "is_done"
+    t.integer "project_id"
+    t.index ["project_id"], name: "index_milestones_on_project_id"
+  end
 
   create_table "okrs", force: :cascade do |t|
     t.string "objective"
@@ -21,7 +29,6 @@ ActiveRecord::Schema.define(version: 2020_02_12_203743) do
   end
 
   create_table "projects", force: :cascade do |t|
-    t.string "milestones"
     t.string "due_date"
     t.string "owner"
     t.integer "okr_id"

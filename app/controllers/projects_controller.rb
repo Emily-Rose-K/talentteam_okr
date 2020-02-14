@@ -1,32 +1,49 @@
 class ProjectsController < ApplicationController
-    before_action :find_okr, only: [:index, :create, :new, :show, :edit, :update, :destroy]
+    before_action :find_okr, only: [:index, :new, :show, :create, :edit, :update, :destroy]
     def index
       @okrs = Okr.all
       @projects = Project.all
     end
 
 
-# GET /okrs/1
-  # GET /okrs/1.json
+# GET /projects/1
+  # GET /projects/1.json
   def show
   end
 
+# GET /projects/new
   def new
-    p = Project.new
-    p.okr = @okr
-  end
-
-  def create
-    p = Project.new
-    p.okr = @okr
+    @project = Project.new
   end
   
+  # POST /projects/1
+  def create
+    @project = Project.new(project_params)
+    @project.okr = @okr
+
+    respond_to do |format|
+      if @project.save
+        format.html { redirect_to okrs_path, notice: 'Project was successfully created.' }
+        format.json { render :show, status: :created, location: @okr }
+      else
+        format.html { render :new }
+        format.json { render json: @project.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
 
   # GET /projects/1/edit
   def edit
   end
 
-    def find_okr
-        @okr = Okr.find(params[:okr_id])
-    end
+  def find_okr
+      @okr = Okr.find(params[:okr_id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def project_params
+    params.require(:project).permit(:name, :due_date, :owner)
+  end
+  
 end
