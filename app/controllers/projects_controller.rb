@@ -1,18 +1,10 @@
 class ProjectsController < ApplicationController
 before_action :find_okr 
 
-
-# GET /projects/1
-  # GET /projects/1.json
-  def show
-  end
-
-# GET /projects/new
   def new
     @project = Project.new
   end
   
-  # POST /projects/1
   def create
     @project = Project.new(project_params)
     @project.okr = @okr
@@ -28,11 +20,8 @@ before_action :find_okr
     end
   end
 
-
-  # GET /projects/1/edit
-  def edit
-  end
-
+  private
+  
   def find_okr
       @okr = Okr.find(params[:okr_id])
   end
