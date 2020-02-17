@@ -37,14 +37,15 @@ class OkrsController < ApplicationController
   end
 
   def destroy
-    @okr.destroy
+    @okr.destroy 
     respond_to do |format|
       format.html { redirect_to okrs_url, notice: 'OKR was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
-  private
+
+private
 
   def set_okr
     @okr = Okr.find(params[:id])

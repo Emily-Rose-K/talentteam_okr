@@ -2,7 +2,11 @@ Rails.application.routes.draw do
   
   resources :okrs do
     resources :projects do
-      resources :milestones
+      resources :milestones do
+        member do
+          patch :complete
+        end
+      end
     end
   end
 

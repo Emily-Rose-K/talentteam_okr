@@ -20,7 +20,6 @@ before_action :find_okr
     end
   end
 
-  private
   
   def find_okr
       @okr = Okr.find(params[:okr_id])
