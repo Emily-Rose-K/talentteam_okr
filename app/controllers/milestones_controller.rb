@@ -13,6 +13,7 @@ class MilestonesController < ApplicationController
   end
 
   def create
+    @milestone = Milestone.new(milestone_params)
     @milestone.project_id = params[:project_id]
     if @milestone.save
       redirect_to okrs_path, notice: 'Milestone was successfully created.' 
