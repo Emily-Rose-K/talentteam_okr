@@ -52,10 +52,7 @@ private
   def set_okr
     @okr = Okr.find(params[:id])
   end
-  
-  def destroy_projects
-    self.projects.destroy_all
-  end
+
   
   # Never trust parameters from the scary internet, only allow the white list through.
   def okr_params
