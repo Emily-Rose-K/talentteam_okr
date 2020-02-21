@@ -1,5 +1,6 @@
 class OkrsController < ApplicationController
-  before_action :set_okr, only: [:show, :edit, :update, :destroy]
+  before_action :set_okr, only: [:update, :destroy, :show, :edit]
+
   def index
     @okrs = Okr.all
     @projects = Project.all
@@ -38,6 +39,7 @@ class OkrsController < ApplicationController
 
   def destroy
     @okr.destroy 
+
     respond_to do |format|
       format.html { redirect_to okrs_url, notice: 'OKR was successfully destroyed.' }
       format.json { head :no_content }
@@ -49,6 +51,10 @@ private
 
   def set_okr
     @okr = Okr.find(params[:id])
+  end
+  
+  def destroy_projects
+    self.projects.destroy_all
   end
   
   # Never trust parameters from the scary internet, only allow the white list through.
