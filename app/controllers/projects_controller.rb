@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
 before_action :find_okr
-before_action :find_project, only: [:destroy, :edit, :update]
+before_action :find_project, except: [:new, :create]
 
   def index
     @okrs = Okr.all
@@ -49,6 +49,11 @@ before_action :find_project, only: [:destroy, :edit, :update]
       end
     end
   end
+
+
+  def completed_milestones
+    project.milestones.where(is_done: true).count 
+   end
 
   def find_okr
       @okr = Okr.find(params[:okr_id])

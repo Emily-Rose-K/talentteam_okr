@@ -29,7 +29,7 @@ class MilestonesController < ApplicationController
     @milestone.update_attribute(:is_done, true)
     redirect_to okrs_path, notice: "Milestone completed"
   end
-
+  
   def edit
     @milestone = Milestone.find(params[:id])
   end
