@@ -49,8 +49,10 @@
   <% if milestone.is_done? %>
     <table>
      <tbody>
+        <tr>
         <td><strike> <%= milestone.name %> <%= milestone.due_date %></strike></td>
-  <% else %>
+  </tr>
+        <% else %>
       <tr>
         <td> <%= milestone.name %> <%= milestone.due_date %> </td>
         <td> <%= link_to 'Complete', complete_okr_project_milestone_path(milestone.project.okr, milestone.project, milestone), method: :patch %></td>
