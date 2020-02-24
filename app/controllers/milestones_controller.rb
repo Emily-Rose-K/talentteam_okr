@@ -1,6 +1,6 @@
 class MilestonesController < ApplicationController
-  before_action :find_project, except: [:complete,]
-  before_action :find_milestone, only: [:destroy, :update, :edit]
+  before_action :find_project
+  before_action :find_milestone, except: [:new, :create]
   
   def index
     @okrs = Okr.all
@@ -27,7 +27,7 @@ class MilestonesController < ApplicationController
     @milestone = Milestone.find_by_id(params[:id])
     @milestone.update_attribute(:completed_at, Time.now)
     @milestone.update_attribute(:is_done, true)
-    redirect_to okrs_path, notice: "Milestone completed"
+    redirect_to okrs_path, notice: "Milestone completed."
   end
   
   def edit

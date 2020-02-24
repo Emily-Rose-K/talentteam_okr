@@ -46,16 +46,17 @@
 <h2> Weekly Goals</h2>
 
 <% @milestones.each do |milestone| %>
-  <tr>
-  <td><%= link_to 'Edit', edit_okr_project_milestone_path(milestone.project.okr, milestone.project, milestone) %></td>
   <% if milestone.is_done? %>
-    <ul style="list-style-type:none;">
-    <strike> <%= milestone.name %> <%= milestone.due_date %></strike>
-    </ul> 
+    <table>
+     <tbody>
+        <td><strike> <%= milestone.name %> <%= milestone.due_date %></strike></td>
   <% else %>
-    <ul style="list-style-type:none;">
-    <li> <%= milestone.name %> <%= milestone.due_date %> </li>
-    <li><%= link_to 'Complete', complete_okr_project_milestone_path(milestone.project.okr, milestone.project, milestone), method: :patch %></li>
-  </ul> 
+      <tr>
+        <td> <%= milestone.name %> <%= milestone.due_date %> </td>
+        <td> <%= link_to 'Complete', complete_okr_project_milestone_path(milestone.project.okr, milestone.project, milestone), method: :patch %></td>
+        <td> <%= link_to 'Edit', edit_okr_project_milestone_path(milestone.project.okr, milestone.project, milestone) %></td>
+      </tr>
+     </tbody>
+    </table>
     <% end %>
 <% end %>
