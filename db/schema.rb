@@ -12,11 +12,14 @@
 
 ActiveRecord::Schema.define(version: 2020_02_17_222600) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "milestones", force: :cascade do |t|
     t.string "name"
     t.string "due_date"
     t.boolean "is_done"
-    t.integer "project_id"
+    t.bigint "project_id"
     t.datetime "completed_at"
     t.integer "okr_id"
     t.index ["project_id"], name: "index_milestones_on_project_id"
@@ -24,7 +27,6 @@ ActiveRecord::Schema.define(version: 2020_02_17_222600) do
 
   create_table "okrs", force: :cascade do |t|
     t.string "objective"
-    t.string "key_results"
     t.string "owner"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -33,7 +35,7 @@ ActiveRecord::Schema.define(version: 2020_02_17_222600) do
   create_table "projects", force: :cascade do |t|
     t.string "due_date"
     t.string "owner"
-    t.integer "okr_id"
+    t.bigint "okr_id"
     t.string "name"
     t.index ["okr_id"], name: "index_projects_on_okr_id"
   end
