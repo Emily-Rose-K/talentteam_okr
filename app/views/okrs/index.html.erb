@@ -47,18 +47,14 @@
 
 <% @milestones.each do |milestone| %>
   <% if milestone.is_done? %>
-    <table>
-     <tbody>
-        <tr>
-        <td><strike> <%= milestone.name %> <%= milestone.due_date %></strike></td>
-  </tr>
+          <ul style="list-style-type:none;">
+            <li><strike> <%= milestone.name %> <%= milestone.due_date %></strike></li>
+          </ul>
         <% else %>
-      <tr>
-        <td> <%= milestone.name %> <%= milestone.due_date %> </td>
-        <td> <%= link_to 'Complete', complete_okr_project_milestone_path(milestone.project.okr, milestone.project, milestone), method: :patch %></td>
-        <td> <%= link_to 'Edit', edit_okr_project_milestone_path(milestone.project.okr, milestone.project, milestone) %></td>
-      </tr>
-     </tbody>
-    </table>
+      <ul style="list-style-type:none;">
+        <li> <%= milestone.name %> <%= milestone.due_date %> 
+             <%= link_to 'Complete', complete_okr_project_milestone_path(milestone.project.okr, milestone.project, milestone), method: :patch %>
+             <%= link_to 'Edit', edit_okr_project_milestone_path(milestone.project.okr, milestone.project, milestone) %> </li>
+      </ul>
     <% end %>
 <% end %>
