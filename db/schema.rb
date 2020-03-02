@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_02_032940) do
+ActiveRecord::Schema.define(version: 2020_03_02_034255) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,7 +32,8 @@ ActiveRecord::Schema.define(version: 2020_03_02_032940) do
     t.bigint "project_id"
     t.datetime "completed_at"
     t.integer "okr_id"
-    t.bigint "assignee_id", null: false
+    t.bigint "assignee_id"
+    t.string "owner"
     t.index ["assignee_id"], name: "index_milestones_on_assignee_id"
     t.index ["project_id"], name: "index_milestones_on_project_id"
   end
@@ -52,7 +53,7 @@ ActiveRecord::Schema.define(version: 2020_03_02_032940) do
     t.string "owner"
     t.bigint "okr_id"
     t.string "name"
-    t.bigint "assignee_id", null: false
+    t.bigint "assignee_id"
     t.index ["assignee_id"], name: "index_projects_on_assignee_id"
     t.index ["okr_id"], name: "index_projects_on_okr_id"
   end

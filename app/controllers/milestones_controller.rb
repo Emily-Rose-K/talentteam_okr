@@ -1,13 +1,6 @@
 class MilestonesController < ApplicationController
   before_action :find_project
   before_action :find_milestone, except: [:new, :create]
-  
-  def index
-    @okrs = Okr.all
-    @projects = Project.all
-    @milestones = Milestone.all
-    @assignees = Assignee.all
-  end
 
   def new
     @milestone = Milestone.new
@@ -65,7 +58,7 @@ class MilestonesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def milestone_params
-    params.require(:milestone).permit(:name, :due_date)
+    params.require(:milestone).permit(:name, :due_date, :assignee_id, :owner)
   end
   
 end

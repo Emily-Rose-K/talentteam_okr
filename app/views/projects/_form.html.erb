@@ -22,10 +22,13 @@
       <%= form.text_field :due_date %>
     </div>
   
-    <div class="field">
-      <%= form.label :owner %>
-      <%= form.text_field :owner %>
-    </div>
+    <div>
+    Owner 
+    <br>
+    <%= collection_select(:okr, :assignee_id, Assignee.all, :id, :full_name) %>
+   </div>
+ 
+  <br>
   
     <div class="actions">
       <%= form.submit %>
