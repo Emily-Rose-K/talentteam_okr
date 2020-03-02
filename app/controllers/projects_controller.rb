@@ -6,6 +6,7 @@ before_action :find_project, except: [:new, :create]
     @okrs = Okr.all
     @projects = Project.all
     @milestones = Milestone.all
+    @assignees = Assignee.all
   end
 
   def new

@@ -1,5 +1,6 @@
 class OkrsController < ApplicationController
   before_action :set_okr, only: [:update, :destroy, :show, :edit]
+  before_action :find_assignee, only: [:update, :destroy, :edit]
 
   def index
     @okrs = Okr.all
@@ -46,16 +47,19 @@ class OkrsController < ApplicationController
     end
   end
 
-
 private
 
   def set_okr
     @okr = Okr.find(params[:id])
   end
 
+  def find_assignee
+    @assignee = Assignee.find(params[:assignee_id])
+  end
+
   
   # Never trust parameters from the scary internet, only allow the white list through.
   def okr_params
-    params.require(:okr).permit(:objective, :key_results, :owner, :project)
+    params.require(:okr).permit(:objective, :key_results, :owner, :assignee_id)
   end
 end

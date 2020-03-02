@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_24_212232) do
+ActiveRecord::Schema.define(version: 2020_03_02_032940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "assignees", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.date "birthday"
+    t.string "nickname"
+    t.string "email"
+    t.boolean "enable"
+    t.string "color"
+  end
 
   create_table "milestones", force: :cascade do |t|
     t.string "name"
@@ -22,6 +32,8 @@ ActiveRecord::Schema.define(version: 2020_02_24_212232) do
     t.bigint "project_id"
     t.datetime "completed_at"
     t.integer "okr_id"
+    t.bigint "assignee_id", null: false
+    t.index ["assignee_id"], name: "index_milestones_on_assignee_id"
     t.index ["project_id"], name: "index_milestones_on_project_id"
   end
 
@@ -31,6 +43,8 @@ ActiveRecord::Schema.define(version: 2020_02_24_212232) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "key_results"
+    t.bigint "assignee_id"
+    t.index ["assignee_id"], name: "index_okrs_on_assignee_id"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -38,7 +52,12 @@ ActiveRecord::Schema.define(version: 2020_02_24_212232) do
     t.string "owner"
     t.bigint "okr_id"
     t.string "name"
+    t.bigint "assignee_id", null: false
+    t.index ["assignee_id"], name: "index_projects_on_assignee_id"
     t.index ["okr_id"], name: "index_projects_on_okr_id"
   end
 
+  add_foreign_key "milestones", "assignees"
+  add_foreign_key "okrs", "assignees"
+  add_foreign_key "projects", "assignees"
 end

@@ -21,16 +21,19 @@
     <%= form.label :key_results %>
     <%= form.text_field :key_results %>
   </div>
-
-
-  <div class="field">
-    <%= form.label :owner %>
-    <%= form.text_field :owner %>
+  
+  <div>
+   Owner 
+   <br>
+   <%= collection_select(:okr, :assignee_id, Assignee.all, :id, :first_name) %>
   </div>
 
+ <br>
+    
   <div class="actions">
     <%= form.submit %>
   </div>
+
 <% end %>
 
 

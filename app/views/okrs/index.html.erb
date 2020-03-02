@@ -3,8 +3,9 @@
 
 <p id="notice"><%= notice %></p>
 
-<h1>Talent Team OKRs 2020</h1>
-<h2> What are our OKRs? <%= link_to 'New Okr', new_okr_path %> </h2>
+<h1>Talent Team OKRs 2020</h1> 
+<h5><%= link_to 'Add Team Member', new_assignee_path %></h5>
+<h2> What are our OKRs?</h2> <h5><%= link_to 'New Okr', new_okr_path %></h5>
 
   <tbody>
   <% @okrs.each do |okr| %>
