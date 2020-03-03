@@ -1,4 +1,4 @@
 class Milestone < ApplicationRecord
     belongs_to :project, ->  {includes :okr}
-    belongs_to :assignee
+    has_one :assignee
   end

@@ -2,6 +2,7 @@ class ProjectsController < ApplicationController
 before_action :find_okr
 before_action :find_project, except: [:new, :create]
 
+
   def new
     @project = Project.new
   end
@@ -48,6 +49,10 @@ before_action :find_project, except: [:new, :create]
       @okr = Okr.find(params[:okr_id])
   end
 
+  def find_assignee
+    @assignee = Assignee.find(params[:assignee_id])
+  end
+
   def find_project
     @project = Project.find(params[:id])
   end
@@ -58,7 +63,7 @@ before_action :find_project, except: [:new, :create]
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def project_params
-    params.require(:project).permit(:name, :due_date, :owner, :assignee_id)
+    params.require(:project).permit(:name, :due_date, :owner)
   end
   
 end

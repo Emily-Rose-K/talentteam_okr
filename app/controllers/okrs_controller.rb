@@ -57,3 +57,10 @@ private
     params.require(:okr).permit(:objective, :key_results, :owner, :assignee_id)
   end
 end
+
+#for some reason, adding :assignee_id to okr_parmsn fixes the "assignee must exist" problem when adding an okr.. 
+#but not for adding the project. and the project says no okr exits.
+
+
+#I fixed the above comment by changing my models 
+#(instead of everything belonging to the assignee I said they each have one asignee)
