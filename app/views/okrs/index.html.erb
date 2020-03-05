@@ -46,7 +46,9 @@
 
 <h2> Weekly Goals</h2>
 
-<% @milestones.each do |milestone| %>
+<% @assignees.each do |assignee| %>
+<%= assignee.full_name %>
+<% assignee.milestones.each do |milestone| %>
   <% if milestone.is_done? %>
           <ul style="list-style-type:none;">
             <li><strike> <%= milestone.name %> <%= milestone.due_date %></strike></li>
@@ -58,4 +60,5 @@
              <%= link_to 'Edit', edit_okr_project_milestone_path(milestone.project.okr, milestone.project, milestone) %> </li>
       </ul>
     <% end %>
+  <% end %>
 <% end %>

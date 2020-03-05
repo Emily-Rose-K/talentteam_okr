@@ -36,7 +36,12 @@
         <%= form.label :email %>
         <%= form.email_field :email %>
       </div>
-    
+
+      <div class="field">
+        <%= form.label :color %>
+        <%= form.text_field :color, :class => "jscolor" %>
+      </div>
+
       <div class="actions">
         <%= form.submit %>
       </div>
