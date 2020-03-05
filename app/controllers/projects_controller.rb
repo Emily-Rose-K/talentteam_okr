@@ -63,7 +63,7 @@ before_action :find_project, except: [:new, :create]
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def project_params
-    params.require(:project).permit(:name, :due_date, :owner)
+    params.require(:project).permit(:name, :due_date, :owner, :assignee_id)
   end
   
 end

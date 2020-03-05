@@ -1,6 +1,6 @@
 class Project < ApplicationRecord
   belongs_to :okr
-  has_one :assignee
+  belongs_to :assignee
   has_many :milestones, :dependent => :destroy
   
 end
