@@ -19,7 +19,8 @@ class AssigneesController < ApplicationController
   end
 
   def assignee_params
-    params.require(:assignee).permit(:first_name, :last_name, :birthday, :nickname, :email)
+    params.require(:assignee).permit(:first_name, :last_name, :birthday, :nickname, :email, :color)
+    
   end
 
   def set_assignee
