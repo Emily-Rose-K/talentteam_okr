@@ -11,8 +11,8 @@
  */
 
 
-
 "use strict";
+
 
 if (!window.jscolor) { window.jscolor = (function () {
 
@@ -154,21 +154,18 @@ var jsc = {
 		var fired = false;
 		var fireOnce = function () {
 			if (!fired) {
-				fired = true;
+                //fire once was broken with turbolinks
+                //fired = true;
 				func();
 			}
-		};
-
+        };
 		if (document.readyState === 'complete') {
 			setTimeout(fireOnce, 1); // async
 			return;
 		}
 
 		if (document.addEventListener) {
-			document.addEventListener('DOMContentLoaded', fireOnce, false);
-
-			// Fallback
-			window.addEventListener('load', fireOnce, false);
+			document.addEventListener('turbolinks:load', fireOnce, false);
 
 		} else if (document.attachEvent) {
 			// IE
