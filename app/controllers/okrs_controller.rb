@@ -4,7 +4,7 @@ class OkrsController < ApplicationController
   def index
     @okrs = Okr.all
     @projects = Project.all
-    @milestones = Milestone.all
+    @milestones= Milestone.all
     @assignees = Assignee.all
   end
   
