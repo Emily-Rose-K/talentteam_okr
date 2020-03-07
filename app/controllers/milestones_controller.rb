@@ -16,7 +16,7 @@ class MilestonesController < ApplicationController
       render :new 
     end
   end
-  
+
   def complete
     @milestone = Milestone.find_by_id(params[:id])
     @milestone.update_attribute(:completed_at, Time.now)
@@ -42,6 +42,7 @@ class MilestonesController < ApplicationController
 
   def destroy
     @milestone.destroy 
+
     respond_to do |format|
       format.html { redirect_to okrs_url, notice: 'Milestone was successfully destroyed.' }
       format.json { head :no_content }
