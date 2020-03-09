@@ -51,7 +51,7 @@
 <% assignee.milestones.each do |milestone| %>
   <% if milestone.is_done? %>
           <ul style="list-style-type:none;">
-            <li><strike> <%= milestone.name.due_soon %> <%= milestone.due_date %></strike></li>
+            <li><strike> <%= milestone.name %> <%= milestone.due_date %></strike></li>
           </ul>
         <% else %>
       <ul style="list-style-type:none;">
