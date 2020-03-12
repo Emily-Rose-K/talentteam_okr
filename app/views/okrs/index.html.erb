@@ -6,9 +6,8 @@
 
 
 
-<h1>Talent Team OKRs 2020</h1> 
-<h5><%= link_to 'Add Team Member', new_assignee_path %></h5>
-<h2> What are our OKRs?</h2> <h5><%= link_to 'New Okr', new_okr_path %></h5>
+<h1>Talent Team OKRs 2020 <button type="button" class="btn btn-outline-dark"><%= link_to 'Add Team Member', new_assignee_path %></button></h1> 
+<h2> What are our OKRs? <button type="button" class="btn btn-outline-success"><%= link_to 'New Okr', new_okr_path %></button></h2> 
 
   <tbody>
   <% @okrs.each do |okr| %>
@@ -24,13 +23,22 @@
     <tr>
       <td><%= okr.objective %></td>
       <td><%= okr.key_results %></td>
-      <td><%= link_to 'Edit OKR', edit_okr_path(okr) %></td>
-      <td><%= link_to 'Delete OKR', okr, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      <td><%= link_to 'Add Project', new_okr_project_path(okr) %></td>
+      <td><span class="badge badge-pill badge-info"><%= link_to 'Edit OKR', edit_okr_path(okr) %></span></td>
+      <td><span class="badge badge-pill badge-danger"><%= link_to 'Delete OKR', okr, method: :delete, data: { confirm: 'Are you sure?' } %></span></td>
+      <td><span class="badge badge-pill badge-success"><%= link_to 'Add Project', new_okr_project_path(okr) %></span></td>
     </tr>
+    <tr>
+    <div class="progress">
+      <div class="progress-bar bg-success" role="progressbar" 
+      style="width: <%= (okr.milestones.where(is_done:true).count.to_f/okr.milestones.count.to_f * 100).truncate %>%" 
+      aria-valuenow="<%= (okr.milestones.where(is_done:true).count.to_f/okr.milestones.count.to_f * 100).truncate %>" 
+      aria-valuemin="0" 
+      aria-valuemax="100"></div>
+    </div>
+  </tr>
   <% end %>
+    </table>
   </tbody>
-</table>
 
 
 
@@ -42,11 +50,15 @@
       <tr>
         <td style="color:#<%= project.assignee.color %>"><%= project.name %></td>
         <td> <span class="badge badge-pill badge-light">(Milestones: <%= project.milestones.count %>)</span></td>
-        <td><%= link_to 'Add Milestone', new_okr_project_milestone_path(project.okr, project) %></td>
-        <td><%= link_to 'Edit Project', edit_okr_project_path(project.okr, project) %></td>
+        <td><span class="badge badge-pill badge-success"><%= link_to 'Add Milestone', new_okr_project_milestone_path(project.okr, project) %></span></td>
+        <td><span class="badge badge-pill badge-info"><%= link_to 'Edit Project', edit_okr_project_path(project.okr, project) %></span></td>
       <tr>
         <div class="progress">
-          <div class="progress-bar bg-success" role="progressbar" style="width: <%= (project.milestones.where(is_done:true).count.to_f/project.milestones.count.to_f * 100).truncate %>%" aria-valuenow="<%= (project.milestones.where(is_done:true).count.to_f/project.milestones.count.to_f * 100).truncate %>" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar bg-success" role="progressbar" 
+          style="width: <%= (project.milestones.where(is_done:true).count.to_f/project.milestones.count.to_f * 100).truncate %>%" 
+          aria-valuenow="<%= (project.milestones.where(is_done:true).count.to_f/project.milestones.count.to_f * 100).truncate %>" 
+          aria-valuemin="0" 
+          aria-valuemax="100"></div>
         </div>
       </tr>
       </tbody>
@@ -61,20 +73,29 @@
  <h5 style="color:#<%= assignee.color %>"> <%=assignee.full_name %> </h5> 
 <% assignee.milestones.each do |milestone| %>
   <% if milestone.is_done? %>
-          <ul style="list-style-type:none;">
-            <li><strike> <%= milestone.name %> <%= milestone.due_date %></strike>
-            <%= link_to 'Delete Milestone',okr_project_milestone_path(milestone.project.okr, milestone.project, milestone), method: :delete, data: { confirm: 'Are you sure?' } %></li>
-          </ul>
         <% else %>
       <ul style="list-style-type:none;">
         <li> <%= milestone.name %> <%= milestone.due_date %> 
-             <%= link_to 'Complete Milestone', complete_okr_project_milestone_path(milestone.project.okr, milestone.project, milestone), method: :patch %>
-             <%= link_to 'Edit Milestone', edit_okr_project_milestone_path(milestone.project.okr, milestone.project, milestone) %> 
-             <%= link_to 'Deltete Milestone',okr_project_milestone_path(milestone.project.okr, milestone.project, milestone), method: :delete, data: { confirm: 'Are you sure?' } %></li>
+             <span class="badge badge-pill badge-success"><%= link_to 'Complete', complete_okr_project_milestone_path(milestone.project.okr, milestone.project, milestone), method: :patch %></span>
+             <span class="badge badge-pill badge-info"> <%= link_to 'Edit', edit_okr_project_milestone_path(milestone.project.okr, milestone.project, milestone) %> </span>
+             <span class="badge badge-pill badge-danger"> <%= link_to 'Delete',okr_project_milestone_path(milestone.project.okr, milestone.project, milestone), method: :delete, data: { confirm: 'Are you sure?' } %></span></li>
       </ul>
     <% end %>
   <% end %>
 <% end %>
+
+<% @assignees.each do |assignee| %>
+  <p style="color:#<%= assignee.color %>"><strong>Done </strong></p> 
+    <% assignee.milestones.each do |milestone| %>
+      <% if milestone.is_done? %>
+        <ul style="list-style-type:none;">
+          <li> <strike><%= milestone.name %> <%= milestone.due_date %> </strike>
+            <span class="badge badge-pill badge-danger"> <%= link_to 'Delete',okr_project_milestone_path(milestone.project.okr, milestone.project, milestone), method: :delete, data: { confirm: 'Are you sure?' } %></span></li>
+          </ul>
+        <% else %>
+     <% end %>
+   <% end %>
+ <% end %>
 
 
 
