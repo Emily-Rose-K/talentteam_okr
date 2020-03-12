@@ -46,7 +46,7 @@ before_action :find_project, except: [:new, :create]
   end
 
   def find_okr
-      @okr = Okr.find(params[:okr_id])
+    @okr = Okr.find(params[:okr_id])
   end
 
   def find_assignee

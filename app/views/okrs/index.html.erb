@@ -3,6 +3,9 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <p id="notice"><%= notice %></p>
 
+
+
+
 <h1>Talent Team OKRs 2020</h1> 
 <h5><%= link_to 'Add Team Member', new_assignee_path %></h5>
 <h2> What are our OKRs?</h2> <h5><%= link_to 'New Okr', new_okr_path %></h5>
@@ -21,45 +24,57 @@
     <tr>
       <td><%= okr.objective %></td>
       <td><%= okr.key_results %></td>
-      <td><%= link_to 'Edit', edit_okr_path(okr) %></td>
-      <td><%= link_to 'Destroy', okr, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td><%= link_to 'Edit OKR', edit_okr_path(okr) %></td>
+      <td><%= link_to 'Delete OKR', okr, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       <td><%= link_to 'Add Project', new_okr_project_path(okr) %></td>
     </tr>
   <% end %>
   </tbody>
 </table>
 
+
+
 <h2> Where is our focus currently?</h2>
 
-<table>
-  <tbody>
   <% @projects.each do |project| %>
-    <tr>
-     <td><%= project.name %></td>
-     <td> (Milestones <%= project.milestones.count %>)</td>
-     <td><%= link_to 'Add Milestone', new_okr_project_milestone_path(project.okr, project) %></td>
-     <td><%= link_to 'Edit', edit_okr_project_path(project.okr, project) %></td>
-    </tr>
+    <table>
+      <tbody>
+      <tr>
+        <td style="color:#<%= project.assignee.color %>"><%= project.name %></td>
+        <td> <span class="badge badge-pill badge-light">(Milestones: <%= project.milestones.count %>)</span></td>
+        <td><%= link_to 'Add Milestone', new_okr_project_milestone_path(project.okr, project) %></td>
+        <td><%= link_to 'Edit Project', edit_okr_project_path(project.okr, project) %></td>
+      <tr>
+        <div class="progress">
+          <div class="progress-bar bg-success" role="progressbar" style="width: <%= (project.milestones.where(is_done:true).count.to_f/project.milestones.count.to_f * 100).truncate %>%" aria-valuenow="<%= (project.milestones.where(is_done:true).count.to_f/project.milestones.count.to_f * 100).truncate %>" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </tr>
+      </tbody>
+    </table>
   <% end %>
-  </tbody>
-</table>
+
+
 
 <h2> Weekly Goals</h2>
 
 <% @assignees.each do |assignee| %>
- <p style="color:#<%= assignee.color %>"> <%=assignee.full_name %> </p> 
+ <h5 style="color:#<%= assignee.color %>"> <%=assignee.full_name %> </h5> 
 <% assignee.milestones.each do |milestone| %>
   <% if milestone.is_done? %>
           <ul style="list-style-type:none;">
-            <li><strike> <%= milestone.name %> <%= milestone.due_date %></strike></li>
+            <li><strike> <%= milestone.name %> <%= milestone.due_date %></strike>
+            <%= link_to 'Delete Milestone',okr_project_milestone_path(milestone.project.okr, milestone.project, milestone), method: :delete, data: { confirm: 'Are you sure?' } %></li>
           </ul>
         <% else %>
       <ul style="list-style-type:none;">
         <li> <%= milestone.name %> <%= milestone.due_date %> 
-             <%= link_to 'Complete', complete_okr_project_milestone_path(milestone.project.okr, milestone.project, milestone), method: :patch %>
-             <%= link_to 'Edit', edit_okr_project_milestone_path(milestone.project.okr, milestone.project, milestone) %> 
-             <%= link_to 'Destroy',okr_project_milestone_path(milestone.project.okr, milestone.project, milestone), method: :delete, data: { confirm: 'Are you sure?' } %></li>
+             <%= link_to 'Complete Milestone', complete_okr_project_milestone_path(milestone.project.okr, milestone.project, milestone), method: :patch %>
+             <%= link_to 'Edit Milestone', edit_okr_project_milestone_path(milestone.project.okr, milestone.project, milestone) %> 
+             <%= link_to 'Deltete Milestone',okr_project_milestone_path(milestone.project.okr, milestone.project, milestone), method: :delete, data: { confirm: 'Are you sure?' } %></li>
       </ul>
     <% end %>
   <% end %>
 <% end %>
+
+
+
