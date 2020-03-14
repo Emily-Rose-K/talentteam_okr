@@ -27,7 +27,12 @@
       <td><%= link_to 'Edit OKR', edit_okr_path(okr) %></td>
       <td><%= link_to 'Delete OKR', okr, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       <td><%= link_to 'Add Project', new_okr_project_path(okr) %></td>
-    </tr>
+    </tr><% if okr.milestones.count > 0 %>
+    <div class="progress">
+      <div class="progress-bar bg-success" role="progressbar" style="width: <%= (okr.milestones.where(is_done:true).count.to_f/okr.milestones.count.to_f * 100).truncate %>%" aria-valuenow="<%= (okr.milestones.where(is_done:true).count.to_f/okr.milestones.count.to_f * 100).truncate %>" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+ <% else %>
+ <% end %>
   <% end %>
   </tbody>
 </table>
@@ -44,15 +49,16 @@
         <td> <span class="badge badge-pill badge-light">(Milestones: <%= project.milestones.count %>)</span></td>
         <td><%= link_to 'Add Milestone', new_okr_project_milestone_path(project.okr, project) %></td>
         <td><%= link_to 'Edit Project', edit_okr_project_path(project.okr, project) %></td>
-      <tr>
-        <div class="progress">
-          <div class="progress-bar bg-success" role="progressbar" style="width: <%= (project.milestones.where(is_done:true).count.to_f/project.milestones.count.to_f * 100).truncate %>%" aria-valuenow="<%= (project.milestones.where(is_done:true).count.to_f/project.milestones.count.to_f * 100).truncate %>" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-      </tr>
-      </tbody>
+       <% if project.milestones.count > 0 %>
+          <div class="progress">
+            <div class="progress-bar bg-success" role="progressbar" style="width: <%= (project.milestones.where(is_done:true).count.to_f/project.milestones.count.to_f * 100).truncate %>%" aria-valuenow="<%= (project.milestones.where(is_done:true).count.to_f/project.milestones.count.to_f * 100).truncate %>" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+       <% else %>
+       <% end %>
+        </tbody>
     </table>
   <% end %>
-
+  
 
 
 <h2> Weekly Goals</h2>
