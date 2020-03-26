@@ -63,31 +63,36 @@
 
 <h2> Weekly Goals</h2>
 
-<% @assignees.each do |assignee| %>
-  <h5 style="color:#<%= assignee.color %>"> <%=assignee.full_name %> </h5> 
- <% assignee.milestones.each do |milestone| %>
-   <% if milestone.is_done? %>
-         <% else %>
-       <ul style="list-style-type:none;">
-         <li> <%= milestone.name %> <%= milestone.due_date %> 
-                <%= link_to 'Complete', complete_okr_project_milestone_path(milestone.project.okr, milestone.project, milestone), method: :patch %></span>
-              <%= link_to 'Edit', edit_okr_project_milestone_path(milestone.project.okr, milestone.project, milestone) %> </span>
-              <%= link_to 'Delete',okr_project_milestone_path(milestone.project.okr, milestone.project, milestone), method: :delete, data: { confirm: 'Are you sure?' } %></span></li>
-       </ul>
-       <p style="color:#<%= assignee.color %>"><strong>Done </strong></p> 
-       <% assignee.milestones.each do |milestone| %>
-         <% if milestone.is_done? %>
-           <ul style="list-style-type:none;">
-             <li> <strike><%= milestone.name %> <%= milestone.due_date %> </strike>
-              <%= link_to 'Delete',okr_project_milestone_path(milestone.project.okr, milestone.project, milestone), method: :delete, data: { confirm: 'Are you sure?' } %></span></li>
-             </ul>
-           <% else %>
-        <% end %>
+  <% @assignees.each do |assignee| %>
+    <% if assignee.milestones.count > 0 %>
+      <h5 style="color:#<%= assignee.color %>"> <%=assignee.full_name %> </h5> 
+    <% else %>
+    <% end %>
+
+    <% assignee.milestones.each do |milestone| %>
+      <% if milestone.is_done? %>
+      <% else %>
+        <ul style="list-style-type:none;">
+          <li> <%= milestone.name %> <%= milestone.due_date %> 
+               <%= link_to 'Complete', complete_okr_project_milestone_path(milestone.project.okr, milestone.project, milestone), method: :patch %></span>
+               <%= link_to 'Edit', edit_okr_project_milestone_path(milestone.project.okr, milestone.project, milestone) %> </span>
+               <%= link_to 'Delete',okr_project_milestone_path(milestone.project.okr, milestone.project, milestone), method: :delete, data: { confirm: 'Are you sure?' } %></span></li>
+        </ul>
+    
       <% end %>
-
-     <% end %>
-   <% end %>
- <% end %>
+    <% end %>
+  <% end %>
 
 
+  <h5><strong> Done </strong></h5>
+    <% @assignees.each do |assignee| %>
+      <% assignee.milestones.each do |milestone| %>
+      <% if milestone.is_done? %>
+        <ul style="list-style-type:none;">
+          <li> <strike style="color:#<%= assignee.color %>"><%= milestone.name %> <%= milestone.due_date %> </strike>
+              <%= link_to 'Delete',okr_project_milestone_path(milestone.project.okr, milestone.project, milestone), method: :delete, data: { confirm: 'Are you sure?' } %></span></li>
+        </ul>
+      <% end %>
+      <% end %>
+    <% end %>
 
