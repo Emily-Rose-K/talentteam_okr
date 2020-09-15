@@ -1,5 +1,14 @@
 Rails.application.routes.draw do
-  
+  root 'home#index'
+
+  resources :sessions, only: [:new, :create, :destroy]
+
+  get 'signup', to: 'users#new', as: 'signup'
+  get 'login', to: 'sessions#new', as: 'login'
+  get 'logout', to: 'sessions#destroy', as: 'logout'
+
+
+  resources :users
   resources :assignees 
     resources :okrs do
       resources :projects do
@@ -10,7 +19,5 @@ Rails.application.routes.draw do
         end
       end
     end
-  
-
-  root 'okrs#index'
 end
+
