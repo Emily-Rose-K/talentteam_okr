@@ -1,74 +1,74 @@
 
+
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <p id="notice"><%= notice %></p>
 
 
-
-
 <h1>Talent Team OKRs 2020</h1> 
 <h5><%= link_to 'Add Team Member', new_assignee_path %></h5>
-<h2> What are our OKRs?</h2> <h5><%= link_to 'New Okr', new_okr_path %></h5>
 
+<div class="container">
+<h2> What are our OKRs?</h2> <h5><%= link_to 'New Okr', new_okr_path %></h5>
   <tbody>
   <% @okrs.each do |okr| %>
     <table>
-  <thead>
+      <thead>
+        <tr>
+          <th style="text-align:left;">Objective</th>
+          <th style="text-align:left;">Key Results</th>
+          <th colspan="2"></th>
+        </tr>
+      </thead>
+        <tr>
+          <td><%= okr.objective %></td>
+          <td><%= okr.key_results %></td>
+          <td><%= link_to 'Edit OKR', edit_okr_path(okr) %></td>
+          <td><%= link_to 'Delete OKR', okr, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Add Project', new_okr_project_path(okr) %></td>
+        </tr>
+
+        <% if okr.milestones.count > 0 %>
+          <div class="progress">
+            <div class="progress-bar bg-success" role="progressbar" style="width: <%= (okr.milestones.where(is_done:true).count.to_f/okr.milestones.count.to_f * 100).truncate %>%" aria-valuenow="<%= (okr.milestones.where(is_done:true).count.to_f/okr.milestones.count.to_f * 100).truncate %>" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        <% else %>
+        <% end %>
+    </table>
+  <% end %> 
 </div>
-    <tr>
-      <th style="text-align:left;">Objective</th>
-      <th style="text-align:left;">Key Results</th>
-      <th colspan="2"></th>
-    </tr>
-  </thead>
-    <tr>
-      <td><%= okr.objective %></td>
-      <td><%= okr.key_results %></td>
-      <td><%= link_to 'Edit OKR', edit_okr_path(okr) %></td>
-      <td><%= link_to 'Delete OKR', okr, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      <td><%= link_to 'Add Project', new_okr_project_path(okr) %></td>
-    </tr><% if okr.milestones.count > 0 %>
-    <div class="progress">
-      <div class="progress-bar bg-success" role="progressbar" style="width: <%= (okr.milestones.where(is_done:true).count.to_f/okr.milestones.count.to_f * 100).truncate %>%" aria-valuenow="<%= (okr.milestones.where(is_done:true).count.to_f/okr.milestones.count.to_f * 100).truncate %>" aria-valuemin="0" aria-valuemax="100"></div>
-    </div>
- <% else %>
- <% end %>
-  <% end %>
-  </tbody>
-</table>
 
-
-
+<div class="container">
 <h2> Where is our focus currently?</h2>
-
   <% @projects.each do |project| %>
     <table>
       <tbody>
-      <tr>
-        <td style="color:#<%= project.assignee.color %>"><%= project.name %></td>
-        <td> <span class="badge badge-pill badge-light">(Milestones: <%= project.milestones.count %>)</span></td>
-        <td><%= link_to 'Add Milestone', new_okr_project_milestone_path(project.okr, project) %></td>
-        <td><%= link_to 'Edit Project', edit_okr_project_path(project.okr, project) %></td>
-       <% if project.milestones.count > 0 %>
-          <div class="progress">
-            <div class="progress-bar bg-success" role="progressbar" style="width: <%= (project.milestones.where(is_done:true).count.to_f/project.milestones.count.to_f * 100).truncate %>%" aria-valuenow="<%= (project.milestones.where(is_done:true).count.to_f/project.milestones.count.to_f * 100).truncate %>" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-       <% else %>
-       <% end %>
-        </tbody>
+        <tr>
+          <td style="color:#<%= project.assignee.color %>"><%= project.name %></td>
+          <td> <span class="badge badge-pill badge-light">(Milestones: <%= project.milestones.count %>)</span></td>
+          <td><%= link_to 'Add Milestone', new_okr_project_milestone_path(project.okr, project) %></td>
+          <td><%= link_to 'Edit Project', edit_okr_project_path(project.okr, project) %></td>
+        </tr>
+        <% if project.milestones.count > 0 %>
+            <div class="progress">
+              <div class="progress-bar bg-success" role="progressbar" style="width: <%= (project.milestones.where(is_done:true).count.to_f/project.milestones.count.to_f * 100).truncate %>%" aria-valuenow="<%= (project.milestones.where(is_done:true).count.to_f/project.milestones.count.to_f * 100).truncate %>" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        <% else %>
+        <% end %>
+      </tbody>
     </table>
   <% end %>
+</div>
+
+
   
-
-
+<div class="container">
 <h2> Weekly Goals</h2>
-
   <% @assignees.each do |assignee| %>
     <% if assignee.milestones.count > 0 %>
       <h5 style="color:#<%= assignee.color %>"> <%=assignee.full_name %> </h5> 
     <% else %>
     <% end %>
-
     <% assignee.milestones.each do |milestone| %>
       <% if milestone.is_done? %>
       <% else %>
@@ -82,8 +82,6 @@
       <% end %>
     <% end %>
   <% end %>
-
-
   <h5><strong> Done </strong></h5>
     <% @assignees.each do |assignee| %>
       <% assignee.milestones.each do |milestone| %>
@@ -95,4 +93,7 @@
       <% end %>
       <% end %>
     <% end %>
+</div>
+
+
 
