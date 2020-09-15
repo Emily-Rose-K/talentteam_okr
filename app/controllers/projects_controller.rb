@@ -1,32 +1,69 @@
 class ProjectsController < ApplicationController
-    before_action :find_okr, only: [:index, :create, :new, :show, :edit, :update, :destroy]
-    def index
-      @okrs = Okr.all
-      @projects = Project.all
-    end
+before_action :find_okr
+before_action :find_project, except: [:new, :create]
 
-
-# GET /okrs/1
-  # GET /okrs/1.json
-  def show
-  end
 
   def new
-    p = Project.new
-    p.okr = @okr
-  end
-
-  def create
-    p = Project.new
-    p.okr = @okr
+    @project = Project.new
   end
   
-
-  # GET /projects/1/edit
-  def edit
+  def create
+    @project = Project.new(project_params)
+    @project.okr = @okr
+    respond_to do |format|
+      if @project.save
+        format.html { redirect_to okrs_path, notice: 'Project was successfully created.' }
+        format.json { render :show, status: :created, location: @okr }
+      else
+        format.html { render :new }
+        format.json { render json: @project.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
-    def find_okr
-        @okr = Okr.find(params[:okr_id])
+  def destroy
+    @project.destroy 
+    respond_to do |format|
+      format.html { redirect_to okrs_url, notice: 'Project was successfully destroyed.' }
+      format.json { head :no_content }
     end
+  end
+
+  def edit
+    @project = Project.find(params[:id])
+  end
+
+  def update
+    respond_to do |format|
+      if @project.update(project_params)
+        format.html { redirect_to okrs_path, notice: 'Project was successfully updated.' }
+        format.json { render :show, status: :ok, location: @project }
+      else
+        format.html { render :edit }
+        format.json { render json: @project.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def find_okr
+    @okr = Okr.find(params[:okr_id])
+  end
+
+  def find_assignee
+    @assignee = Assignee.find(params[:assignee_id])
+  end
+
+  def find_project
+    @project = Project.find(params[:id])
+  end
+
+  def destroy_milestones
+    self.milestones.destroy_all
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def project_params
+    params.require(:project).permit(:name, :due_date, :owner, :assignee_id)
+  end
+  
 end
