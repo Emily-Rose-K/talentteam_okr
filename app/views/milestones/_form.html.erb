@@ -19,8 +19,16 @@
     
       <div class="field">
         <%= form.label :due_date %>
-        <%= form.text_field :due_date %>
+        <%= form.date_field :due_date %>
       </div>
+    
+      <div>
+      Owner 
+      <br>
+      <%= collection_select(:milestone, :assignee_id, Assignee.all, :id, :full_name) %>
+     </div>
+   
+    <br>
     
       <div class="actions">
         <%= form.submit %>

@@ -1,12 +1,6 @@
 class MilestonesController < ApplicationController
   before_action :find_project
   before_action :find_milestone, except: [:new, :create]
-  
-  def index
-    @okrs = Okr.all
-    @projects = Project.all
-    @milestones = Milestone.all
-  end
 
   def new
     @milestone = Milestone.new
@@ -22,7 +16,7 @@ class MilestonesController < ApplicationController
       render :new 
     end
   end
-  
+
   def complete
     @milestone = Milestone.find_by_id(params[:id])
     @milestone.update_attribute(:completed_at, Time.now)
@@ -48,6 +42,7 @@ class MilestonesController < ApplicationController
 
   def destroy
     @milestone.destroy 
+
     respond_to do |format|
       format.html { redirect_to okrs_url, notice: 'Milestone was successfully destroyed.' }
       format.json { head :no_content }
@@ -64,7 +59,7 @@ class MilestonesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def milestone_params
-    params.require(:milestone).permit(:name, :due_date)
+    params.require(:milestone).permit(:name, :due_date, :owner, :assignee_id)
   end
   
 end

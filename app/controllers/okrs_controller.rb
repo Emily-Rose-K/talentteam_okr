@@ -4,7 +4,8 @@ class OkrsController < ApplicationController
   def index
     @okrs = Okr.all
     @projects = Project.all
-    @milestones = Milestone.all
+    @milestones= Milestone.all
+    @assignees = Assignee.all
   end
   
   def new
@@ -52,10 +53,9 @@ private
   def set_okr
     @okr = Okr.find(params[:id])
   end
-
   
   # Never trust parameters from the scary internet, only allow the white list through.
   def okr_params
-    params.require(:okr).permit(:objective, :key_results, :owner, :project)
+    params.require(:okr).permit(:objective, :key_results, :owner, :assignee_id)
   end
 end

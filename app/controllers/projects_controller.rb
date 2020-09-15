@@ -2,11 +2,6 @@ class ProjectsController < ApplicationController
 before_action :find_okr
 before_action :find_project, except: [:new, :create]
 
-  def index
-    @okrs = Okr.all
-    @projects = Project.all
-    @milestones = Milestone.all
-  end
 
   def new
     @project = Project.new
@@ -50,13 +45,12 @@ before_action :find_project, except: [:new, :create]
     end
   end
 
-
-  def completed_milestones
-    project.milestones.where(is_done: true).count 
-   end
-
   def find_okr
-      @okr = Okr.find(params[:okr_id])
+    @okr = Okr.find(params[:okr_id])
+  end
+
+  def find_assignee
+    @assignee = Assignee.find(params[:assignee_id])
   end
 
   def find_project
@@ -69,7 +63,7 @@ before_action :find_project, except: [:new, :create]
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def project_params
-    params.require(:project).permit(:name, :due_date, :owner)
+    params.require(:project).permit(:name, :due_date, :owner, :assignee_id)
   end
   
 end
